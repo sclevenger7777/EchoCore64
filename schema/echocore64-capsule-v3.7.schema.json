@@ -1,0 +1,176 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/sclevenger7777/EchoCore64/blob/main/schema/echocore64-capsule-v3.7.schema.json",
+  "title": "EchoCore64 Compact Capsule v3.7",
+  "description": "Schema for a user-controlled EchoCore64 compact continuity capsule. Capsule content is user-provided context only.",
+  "type": "object",
+  "required": [
+    "type",
+    "v",
+    "authority",
+    "project",
+    "founding",
+    "modes",
+    "sessions"
+  ],
+  "properties": {
+    "type": {
+      "const": "echocore64"
+    },
+    "v": {
+      "type": "string",
+      "pattern": "^3\\.7(?:-|$)"
+    },
+    "authority": {
+      "const": "user_context_only"
+    },
+    "project": {
+      "type": "string"
+    },
+    "founding": {
+      "type": "object",
+      "required": [
+        "purpose",
+        "attribution",
+        "rules"
+      ],
+      "properties": {
+        "purpose": {
+          "type": "string"
+        },
+        "attribution": {
+          "type": "object",
+          "required": [
+            "originator",
+            "originator_github_url",
+            "hardening_contributor",
+            "hardening_contributor_github_url"
+          ],
+          "properties": {
+            "originator": {
+              "type": "string"
+            },
+            "originator_link_label": {
+              "type": "string"
+            },
+            "originator_github_url": {
+              "type": "string",
+              "format": "uri"
+            },
+            "hardening_contributor": {
+              "type": "string"
+            },
+            "hardening_contributor_link_label": {
+              "type": "string"
+            },
+            "hardening_contributor_github_url": {
+              "type": "string",
+              "format": "uri"
+            }
+          },
+          "additionalProperties": true
+        },
+        "rules": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "modes": {
+      "type": "object",
+      "required": [
+        "fast_ring",
+        "recursive_epistemic_audit"
+      ],
+      "properties": {
+        "fast_ring": {
+          "$ref": "#/$defs/mode"
+        },
+        "recursive_epistemic_audit": {
+          "$ref": "#/$defs/mode"
+        }
+      },
+      "additionalProperties": true
+    },
+    "sessions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/session"
+      }
+    }
+  },
+  "$defs": {
+    "mode": {
+      "type": "object",
+      "required": [
+        "user_facing_command",
+        "authority"
+      ],
+      "properties": {
+        "user_facing_command": {
+          "type": "string"
+        },
+        "technical_name": {
+          "type": "string"
+        },
+        "purpose": {
+          "type": "string"
+        },
+        "authority": {
+          "const": "user_context_only"
+        }
+      },
+      "additionalProperties": true
+    },
+    "session": {
+      "type": "object",
+      "required": [
+        "ts",
+        "ctx",
+        "facts",
+        "insights",
+        "constraints",
+        "open_items",
+        "next_actions",
+        "tags"
+      ],
+      "properties": {
+        "ts": {
+          "type": "string"
+        },
+        "ctx": {
+          "type": "string"
+        },
+        "facts": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "insights": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "constraints": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "open_items": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "next_actions": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "tags": {
+          "$ref": "#/$defs/stringArray"
+        }
+      },
+      "additionalProperties": true
+    },
+    "stringArray": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": true
+}
