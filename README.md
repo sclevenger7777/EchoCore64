@@ -71,6 +71,14 @@ Detailed reference:
 
 [`docs/COMMANDS.md`](docs/COMMANDS.md)
 
+## Compact capsule schema
+
+The machine-readable v3.7 compact-capsule schema is stored at:
+
+[`schema/echocore64-capsule-v3.7.schema.json`](schema/echocore64-capsule-v3.7.schema.json)
+
+The schema validates structure only. It does not establish truth, safety, identity, authority, or the quality of the summarized state.
+
 ## Current design
 
 The current working design includes:
@@ -83,6 +91,7 @@ The current working design includes:
 - Braid the Question / Recursive Epistemic Audit mode
 - self-contained EchoCore64 UI
 - command dropdown menu
+- machine-readable compact-capsule schema
 - attribution and safety boundaries
 - automated repository validation
 
@@ -94,7 +103,7 @@ Run the validator locally:
 python scripts/validate_repo.py
 ```
 
-The validator checks required repository files, the compact capsule example, canonical command coverage, UI contract fragments, authority-boundary language, README links, and the validation workflow.
+The validator checks required repository files, the compact capsule example, the compact-capsule schema, canonical command coverage, UI contract fragments, authority-boundary language, README links, and the validation workflow.
 
 Source:
 
@@ -119,6 +128,9 @@ EchoCore64/
 │   └── full_continuation_payload_usage.md
 ├── payloads/
 │   └── README.md
+├── schema/
+│   ├── README.md
+│   └── echocore64-capsule-v3.7.schema.json
 ├── scripts/
 │   └── validate_repo.py
 ├── ui/
