@@ -30,3 +30,7 @@ Base64 is encoding, not encryption.
 Do not place secrets, credentials, private keys, tokens, passwords, or sensitive raw logs inside any payload.
 
 ## Current canonical documentation
+
+The current documented v3.7 full continuation payload is stored in:
+
+`docs/EchoCore64_Chat_Bootstrap_v3.7_Full_Continuation_Payload.txt`
