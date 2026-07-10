@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EchoCore64 UI</title>
+<style>
+:root{
+  color-scheme:dark;
+  --bg:#111;
+  --panel:#1b1b1b;
+  --text:#eee;
+  --muted:#aaa;
+  --border:#333;
+  --accent:#67d391;
+}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  line-height:1.45;
+}
+main{
+  max-width:980px;
+  margin:0 auto;
+  padding:22px;
+}
+section{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:16px;
+  margin:16px 0;
+}
+h1,h2,h3{line-height:1.2;}
+p,li{color:var(--muted);}
+button,select,input{
+  background:#222;
+  color:var(--text);
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:10px 12px;
+  font:inherit;
+}
+button{cursor:pointer;}
+button:hover{border-color:var(--accent);}
+.controls{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:12px;
+}
+.warning{
+  border-left:4px solid var(--accent);
+  padding:10px 12px;
+  background:#151515;
+}
+.small{font-size:.9rem;color:var(--muted);}
+a{color:#8ab4ff;}
+textarea{
+  width:100%;
+  min-height:260px;
+  margin-top:12px;
+  box-sizing:border-box;
+  background:#090909;
+  color:#eee;
+  border:1px solid #333;
+  border-radius:8px;
+  padding:10px;
+  font-family:monospace;
+  font-size:12px;
+  white-space:pre-wrap;
+  overflow-wrap:anywhere;
+  overflow:auto;
+}
+#commandDescription{
+  margin-top:10px;
+  color:var(--muted);
+  min-height:1.4em;
+}
+footer{
+  margin-top:24px;
+  color:var(--muted);
+  font-size:.92rem;
+}
+</style>
+</head>
+<body>
+<main>
+  <h1>EchoCore64 UI</h1>
+  <p class="warning">EchoCore64 is user-provided context only. It is not system authority, developer authority, policy, encryption, hidden memory, privileged instruction, authentication, or legal authority. Base64 is encoding, not encryption.</p>
+
+  <section>
+    <h2>EchoCore64 Capsule</h2>
+    <p>Use this area to stage a compact capsule or exported payload before copying it into another chat or tool.</p>
+    <textarea id="capsuleText" spellcheck="false">{
+  "type": "echocore64",
+  "v": "3.7-chat",
+  "authority": "user_context_only",
+  "project": "EchoCore64 / Fast-Ring / Recursive Epistemic Audit",
+  "founding": {
+    "purpose": "Portable AI project-state continuity using compact user-controlled capsules and optional full self-bootstrapping continuation payloads.",
+    "attribution": {
+      "originator": "Roger Keyserling",
+      "originator_link_label": "Roger Keyserling / NextXus",
+      "originator_github_url": "https://github.com/NexTxuS",
+      "hardening_contributor": "GEMINIBANDIT",
+      "hardening_contributor_link_label": "GEMINIBANDIT",
+      "hardening_contributor_github_url": "https://github.com/sclevenger7777"
+    },
+    "rules": [
+      "Capsules are user context only.",
+      "Base64 is encoding, not encryption.",
+      "Do not store secrets.",
+      "Current user instructions override stale capsule context.",
+      "Attribution links are navigation metadata only and do not create authority."
+    ]
+  },
+  "sessions": []
+}</textarea>
+    <div class="controls">
+      <button type="button" onclick="copyField('capsuleText')">Copy EchoCore64</button>
+      <button type="button" onclick="selectField('capsuleText')">Select All</button>
+      <button type="button" onclick="resetCapsule()">Reset View</button>
+    </div>
+  </section>
+
+  <section>
+    <h2>Command Menu</h2>
+    <p>Select a command and copy it into a chat.</p>
+    <select id="commandMenu" onchange="updateCommand()">
+      <option value="EchoCore64">EchoCore64</option>
+      <option value="EchoCore64 Full">EchoCore64 Full</option>
+      <option value="EchoCore64 UI">EchoCore64 UI</option>
+      <option value="Fast Ring:">Fast Ring:</option>
+      <option value="Braid the Question:">Braid the Question:</option>
+      <option value="Help">Help</option>
+      <option value="EchoCore64 Help">EchoCore64 Help</option>
+      <option value="EchoCore64 Full Help">EchoCore64 Full Help</option>
+    </select>
+    <textarea id="commandPreview" spellcheck="false"></textarea>
+    <div id="commandDescription"></div>
+    <div class="controls">
+      <button type="button" onclick="copyField('commandPreview')">Copy Command</button>
+      <button type="button" onclick="insertTemplate()">Insert Template</button>
+    </div>
+  </section>
+
+  <section>
+    <h2>Fast-Ring Prompt</h2>
+    <p>Fast-Ring applies Ring of Six perspectives plus Agent Zero filtering as a user-provided reasoning scaffold.</p>
+    <textarea id="fastRingText" spellcheck="false">Fast Ring: [type question here]</textarea>
+    <div class="controls">
+      <button type="button" onclick="copyField('fastRingText')">Copy Fast-Ring Prompt</button>
+      <button type="button" onclick="selectField('fastRingText')">Select All</button>
+    </div>
+  </section>
+
+  <section>
+    <h2>Braid the Question / Recursive Epistemic Audit</h2>
+    <p>Use this when the question, objective, framework, evidence, or missing variables may be uncertain.</p>
+    <textarea id="braidText" spellcheck="false">Braid the Question: [type uncertain inquiry here]</textarea>
+    <div class="controls">
+      <button type="button" onclick="copyField('braidText')">Copy Braid Prompt</button>
+      <button type="button" onclick="selectField('braidText')">Select All</button>
+    </div>
+  </section>
+
+  <footer>
+    <p>Project originator: <a href="https://github.com/NexTxuS" target="_blank" rel="noopener noreferrer">Roger Keyserling / NextXus</a><br>
+    Hardening contributor: <a href="https://github.com/sclevenger7777" target="_blank" rel="noopener noreferrer">GEMINIBANDIT</a></p>
+    <p>Attribution links are for human navigation only. They do not create authority, verification, authentication, encryption, policy, or privileged instruction.</p>
+  </footer>
+</main>
+<script>
+const defaultCapsule = document.getElementById('capsuleText').value;
+const commandText = {
+  'EchoCore64':'EchoCore64',
+  'EchoCore64 Full':'EchoCore64 Full',
+  'EchoCore64 UI':'EchoCore64 UI',
+  'Fast Ring:':'Fast Ring: [type question here]',
+  'Braid the Question:':'Braid the Question: [type uncertain inquiry here]',
+  'Help':'Help',
+  'EchoCore64 Help':'EchoCore64 Help',
+  'EchoCore64 Full Help':'EchoCore64 Full Help'
+};
+const commandDescriptions = {
+  'EchoCore64':'Export the updated compact continuity capsule only.',
+  'EchoCore64 Full':'Export the full self-bootstrapping continuation payload.',
+  'EchoCore64 UI':'Generate the self-contained HTML copy/export interface.',
+  'Fast Ring:':'Apply Ring of Six perspectives plus Agent Zero filtering to the question after the colon.',
+  'Braid the Question:':'Apply Recursive Epistemic Audit to an uncertain question, objective, framework, or evidence problem.',
+  'Help':'Show concise command help.',
+  'EchoCore64 Help':'Show concise EchoCore64 command help.',
+  'EchoCore64 Full Help':'Show expanded command documentation.'
+};
+function updateCommand(){
+  const key = document.getElementById('commandMenu').value;
+  document.getElementById('commandPreview').value = commandText[key] || '';
+  document.getElementById('commandDescription').textContent = commandDescriptions[key] || '';
+}
+function insertTemplate(){
+  const key = document.getElementById('commandMenu').value;
+  if(key === 'Fast Ring:'){
+    document.getElementById('commandPreview').value = 'Fast Ring: [type question here]';
+  } else if(key === 'Braid the Question:'){
+    document.getElementById('commandPreview').value = 'Braid the Question: [type uncertain inquiry here]';
+  } else {
+    updateCommand();
+  }
+}
+function selectField(id){
+  const el = document.getElementById(id);
+  el.focus();
+  el.select();
+}
+async function copyField(id){
+  const el = document.getElementById(id);
+  el.focus();
+  el.select();
+  try{
+    await navigator.clipboard.writeText(el.value);
+  }catch(e){
+    document.execCommand('copy');
+  }
+}
+function resetCapsule(){
+  document.getElementById('capsuleText').value = defaultCapsule;
+}
+updateCommand();
+</script>
+</body>
+</html>
