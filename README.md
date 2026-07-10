@@ -67,6 +67,10 @@ The capsule is intended to help a user continue work across chats, tools, or AI 
 
 Whole-message commands should match exactly. Prefix commands activate only when a message starts with the exact prefix.
 
+Detailed reference:
+
+[`docs/COMMANDS.md`](docs/COMMANDS.md)
+
 ## Current design
 
 The current working design includes:
@@ -86,6 +90,7 @@ The current working design includes:
 ```text
 EchoCore64/
 ├── docs/
+│   ├── COMMANDS.md
 │   └── EchoCore64_Chat_Bootstrap_v3.7_Full_Continuation_Payload.txt
 ├── examples/
 │   ├── README.md
@@ -96,6 +101,8 @@ EchoCore64/
 ├── ui/
 │   ├── README.md
 │   └── echocore64.html
+├── CHANGELOG.md
+├── CONTRIBUTIONS.md
 ├── LICENSE
 ├── NOTICE
 └── README.md
@@ -130,12 +137,20 @@ Implementation hardening, validation workflow, local reference testing, UI previ
 
 [**GEMINIBANDIT**](https://github.com/sclevenger7777/EchoCore64)
 
+Detailed record:
+
+[`CONTRIBUTIONS.md`](CONTRIBUTIONS.md)
+
 ### Repository relationship
 
 - Upstream origin: [`keyhole-creator/eChoCore64-`](https://github.com/keyhole-creator/eChoCore64-)
 - Maintained implementation fork: [`sclevenger7777/EchoCore64`](https://github.com/sclevenger7777/EchoCore64)
 
 Changes developed in the maintained fork can be reviewed and incorporated upstream through GitHub pull requests or normal Git operations, preserving a visible contribution record.
+
+## Changelog
+
+See [`CHANGELOG.md`](CHANGELOG.md).
 
 ## License
 
