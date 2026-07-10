@@ -10,17 +10,22 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 REQUIRED_FILES = (
+    ".github/pull_request_template.md",
+    ".github/workflows/validate.yml",
     "README.md",
     "LICENSE",
     "NOTICE",
     "CHANGELOG.md",
+    "CONTRIBUTING.md",
     "CONTRIBUTIONS.md",
+    "SECURITY.md",
     "docs/COMMANDS.md",
     "docs/EchoCore64_Chat_Bootstrap_v3.7_Full_Continuation_Payload.txt",
     "examples/README.md",
     "examples/compact_capsule_example.json",
     "examples/full_continuation_payload_usage.md",
     "payloads/README.md",
+    "scripts/validate_repo.py",
     "ui/README.md",
     "ui/echocore64.html",
 )
@@ -142,13 +147,29 @@ def validate_readme_links(errors: list[str]) -> None:
         "docs/EchoCore64_Chat_Bootstrap_v3.7_Full_Continuation_Payload.txt",
         "examples/full_continuation_payload_usage.md",
         "ui/echocore64.html",
+        "CONTRIBUTING.md",
         "CONTRIBUTIONS.md",
         "CHANGELOG.md",
+        "SECURITY.md",
         "NOTICE",
+        "scripts/validate_repo.py",
     )
     for link in required_links:
         if link not in readme:
             fail(f"README is missing repository link: {link}", errors)
+
+
+def validate_workflow(errors: list[str]) -> None:
+    workflow = read_text(".github/workflows/validate.yml", errors)
+    required_fragments = (
+        "actions/checkout@v4",
+        "actions/setup-python@v5",
+        "python scripts/validate_repo.py",
+        "pull_request:",
+    )
+    for fragment in required_fragments:
+        if fragment not in workflow:
+            fail(f"Validation workflow is missing: {fragment}", errors)
 
 
 def main() -> int:
@@ -160,6 +181,7 @@ def main() -> int:
         validate_payload(errors)
         validate_ui(errors)
         validate_readme_links(errors)
+        validate_workflow(errors)
 
     if errors:
         print("EchoCore64 validation failed:", file=sys.stderr)
