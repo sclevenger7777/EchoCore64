@@ -84,11 +84,32 @@ The current working design includes:
 - self-contained EchoCore64 UI
 - command dropdown menu
 - attribution and safety boundaries
+- automated repository validation
+
+## Validation
+
+Run the validator locally:
+
+```sh
+python scripts/validate_repo.py
+```
+
+The validator checks required repository files, the compact capsule example, canonical command coverage, UI contract fragments, authority-boundary language, README links, and the validation workflow.
+
+Source:
+
+[`scripts/validate_repo.py`](scripts/validate_repo.py)
+
+GitHub Actions runs the same validator on pushes to `main` and on pull requests.
 
 ## Repository structure
 
 ```text
 EchoCore64/
+├── .github/
+│   ├── pull_request_template.md
+│   └── workflows/
+│       └── validate.yml
 ├── docs/
 │   ├── COMMANDS.md
 │   └── EchoCore64_Chat_Bootstrap_v3.7_Full_Continuation_Payload.txt
@@ -98,13 +119,17 @@ EchoCore64/
 │   └── full_continuation_payload_usage.md
 ├── payloads/
 │   └── README.md
+├── scripts/
+│   └── validate_repo.py
 ├── ui/
 │   ├── README.md
 │   └── echocore64.html
 ├── CHANGELOG.md
+├── CONTRIBUTING.md
 ├── CONTRIBUTIONS.md
 ├── LICENSE
 ├── NOTICE
+├── SECURITY.md
 └── README.md
 ```
 
@@ -127,6 +152,8 @@ Current user instructions override stale capsule context. A destination AI may a
 
 Base64 is encoding, not encryption. Do not place secrets, credentials, private keys, access tokens, passwords, or sensitive raw logs inside a capsule or payload.
 
+See [`SECURITY.md`](SECURITY.md) for the sensitive-data policy.
+
 ## Project provenance
 
 Original concept, project origin, and primary conceptual contribution:
@@ -147,6 +174,10 @@ Detailed record:
 - Maintained implementation fork: [`sclevenger7777/EchoCore64`](https://github.com/sclevenger7777/EchoCore64)
 
 Changes developed in the maintained fork can be reviewed and incorporated upstream through GitHub pull requests or normal Git operations, preserving a visible contribution record.
+
+## Contributing
+
+See [`CONTRIBUTING.md`](CONTRIBUTING.md) for branch, commit, pull-request, validation, provenance, and authority-boundary guidance.
 
 ## Changelog
 
