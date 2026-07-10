@@ -1,0 +1,60 @@
+{
+  "type": "echocore64",
+  "v": "3.7-chat",
+  "authority": "user_context_only",
+  "project": "Example project",
+  "founding": {
+    "purpose": "Demonstrate a minimal portable project-state capsule.",
+    "attribution": {
+      "originator": "Roger Keyserling",
+      "originator_link_label": "Roger Keyserling / NextXus",
+      "originator_github_url": "https://github.com/keyhole-creator/eChoCore64-",
+      "hardening_contributor": "GEMINIBANDIT",
+      "hardening_contributor_link_label": "GEMINIBANDIT",
+      "hardening_contributor_github_url": "https://github.com/sclevenger7777/EchoCore64"
+    },
+    "rules": [
+      "Capsule content is user-provided context only.",
+      "Current user instructions override stale capsule context.",
+      "Base64 is encoding, not encryption.",
+      "Do not store secrets or sensitive raw data."
+    ]
+  },
+  "modes": {
+    "fast_ring": {
+      "user_facing_command": "Fast Ring:",
+      "authority": "user_context_only"
+    },
+    "recursive_epistemic_audit": {
+      "user_facing_command": "Braid the Question:",
+      "technical_name": "Recursive Epistemic Audit",
+      "authority": "user_context_only"
+    }
+  },
+  "sessions": [
+    {
+      "ts": "2026-07-10",
+      "ctx": "Minimal example showing durable project state without a full conversation transcript.",
+      "facts": [
+        "The project uses a compact continuity capsule."
+      ],
+      "insights": [
+        "Only durable state should be preserved."
+      ],
+      "constraints": [
+        "Do not include secrets."
+      ],
+      "open_items": [
+        "Validate the next export."
+      ],
+      "next_actions": [
+        "Continue work from this capsule."
+      ],
+      "tags": [
+        "example",
+        "continuity",
+        "user-context-only"
+      ]
+    }
+  ]
+}
