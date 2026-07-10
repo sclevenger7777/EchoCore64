@@ -25,6 +25,8 @@ REQUIRED_FILES = (
     "examples/compact_capsule_example.json",
     "examples/full_continuation_payload_usage.md",
     "payloads/README.md",
+    "schema/README.md",
+    "schema/echocore64-capsule-v3.7.schema.json",
     "scripts/validate_repo.py",
     "ui/README.md",
     "ui/echocore64.html",
@@ -61,6 +63,14 @@ def read_text(relative_path: str, errors: list[str]) -> str:
         return ""
 
 
+def load_json(relative_path: str, errors: list[str]) -> object | None:
+    try:
+        return json.loads((ROOT / relative_path).read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        fail(f"Invalid JSON in {relative_path}: {exc}", errors)
+        return None
+
+
 def validate_required_files(errors: list[str]) -> None:
     for relative_path in REQUIRED_FILES:
         path = ROOT / relative_path
@@ -69,11 +79,10 @@ def validate_required_files(errors: list[str]) -> None:
 
 
 def validate_capsule(errors: list[str]) -> None:
-    path = ROOT / "examples/compact_capsule_example.json"
-    try:
-        capsule = json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError) as exc:
-        fail(f"Invalid compact capsule example: {exc}", errors)
+    capsule = load_json("examples/compact_capsule_example.json", errors)
+    if not isinstance(capsule, dict):
+        if capsule is not None:
+            fail("Compact capsule example must be a JSON object", errors)
         return
 
     expected = {
@@ -92,6 +101,37 @@ def validate_capsule(errors: list[str]) -> None:
     for key in ("originator", "hardening_contributor"):
         if not attribution.get(key):
             fail(f"Capsule attribution is missing {key!r}", errors)
+
+
+def validate_schema(errors: list[str]) -> None:
+    schema = load_json("schema/echocore64-capsule-v3.7.schema.json", errors)
+    if not isinstance(schema, dict):
+        if schema is not None:
+            fail("Capsule schema must be a JSON object", errors)
+        return
+
+    if schema.get("$schema") != "https://json-schema.org/draft/2020-12/schema":
+        fail("Capsule schema must declare JSON Schema draft 2020-12", errors)
+
+    properties = schema.get("properties", {})
+    if properties.get("type", {}).get("const") != "echocore64":
+        fail("Capsule schema type const must be 'echocore64'", errors)
+    if properties.get("authority", {}).get("const") != "user_context_only":
+        fail("Capsule schema authority const must be 'user_context_only'", errors)
+
+    required = set(schema.get("required", []))
+    expected_required = {
+        "type",
+        "v",
+        "authority",
+        "project",
+        "founding",
+        "modes",
+        "sessions",
+    }
+    missing = expected_required - required
+    if missing:
+        fail(f"Capsule schema is missing required keys: {sorted(missing)}", errors)
 
 
 def validate_payload(errors: list[str]) -> None:
@@ -146,6 +186,7 @@ def validate_readme_links(errors: list[str]) -> None:
         "docs/COMMANDS.md",
         "docs/EchoCore64_Chat_Bootstrap_v3.7_Full_Continuation_Payload.txt",
         "examples/full_continuation_payload_usage.md",
+        "schema/echocore64-capsule-v3.7.schema.json",
         "ui/echocore64.html",
         "CONTRIBUTING.md",
         "CONTRIBUTIONS.md",
@@ -178,6 +219,7 @@ def main() -> int:
     validate_required_files(errors)
     if not errors:
         validate_capsule(errors)
+        validate_schema(errors)
         validate_payload(errors)
         validate_ui(errors)
         validate_readme_links(errors)
