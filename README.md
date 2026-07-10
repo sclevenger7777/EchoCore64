@@ -1,5 +1,7 @@
 # EchoCore64
 
+[![Validate EchoCore64](https://github.com/sclevenger7777/EchoCore64/actions/workflows/validate.yml/badge.svg)](https://github.com/sclevenger7777/EchoCore64/actions/workflows/validate.yml)
+
 EchoCore64 is a user-controlled continuity-capsule framework for carrying project context across AI chat sessions without treating that context as system authority.
 
 The project is designed to improve continuity, reduce drift, reduce hallucination risk, and make complex question-answering workflows more auditable.
@@ -109,7 +111,7 @@ Source:
 
 [`scripts/validate_repo.py`](scripts/validate_repo.py)
 
-GitHub Actions runs the same validator on pushes to `main` and on pull requests.
+GitHub Actions runs the same validator on pushes to `main`, pull requests, and manual workflow dispatches.
 
 ## Repository structure
 
